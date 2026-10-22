@@ -1,14 +1,16 @@
 {
   "app": {
     "name": "SwallowMail",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "offline": "Offline — some features unavailable"
   },
   "sidebar": {
     "accounts": "Accounts",
     "addAccount": "Add Account",
     "allAccounts": "All Accounts",
     "compose": "Compose",
-    "settings": "Settings"
+    "settings": "Settings",
+    "unifiedInbox": "All Inboxes"
   },
   "folder": {
     "inbox": "Inbox",
@@ -33,7 +35,17 @@
     "delete": "Delete",
     "reply": "Reply",
     "replyAll": "Reply All",
-    "forward": "Forward"
+    "forward": "Forward",
+    "flag": "Flag",
+    "unflag": "Unflag",
+    "searchPlaceholder": "Search subject, sender...",
+    "searchResults": "Search results: ",
+    "noSearchResults": "No matching messages found",
+    "threadCount": "{{count}} messages in this thread",
+    "attachments": "Attachments",
+    "threadView": "Thread View",
+    "listView": "List View",
+    "moveTo": "Move to"
   },
   "compose": {
     "title": "New Message",
@@ -43,10 +55,14 @@
     "toPlaceholder": "To",
     "ccPlaceholder": "Cc",
     "subjectPlaceholder": "Subject",
-    "bodyPlaceholder": "Write your message here..."
+    "bodyPlaceholder": "Write your message here...",
+    "plainText": "Plain Text",
+    "richText": "Rich Text",
+    "addAttachment": "Add Attachment"
   },
   "account": {
     "add": "Add Email Account",
+    "edit": "Edit Account",
     "selectProvider": "Select Provider",
     "custom": "Custom IMAP/SMTP",
     "email": "Email Address",
@@ -59,7 +75,8 @@
     "126": "126 Mail",
     "gmail": "Gmail",
     "outlook": "Outlook",
-    "qqAuthCodeHint": "Use QQ Mail authorization code, not QQ password"
+    "qqAuthCodeHint": "Use QQ Mail authorization code, not QQ password",
+    "connecting": "Connecting and fetching folders..."
   },
   "settings": {
     "title": "Settings",
@@ -71,6 +88,39 @@
     "dark": "Dark",
     "system": "System",
     "notifications": "Notifications",
-    "signature": "Signature"
+    "signature": "Signature",
+    "syncInterval": "Sync Interval",
+    "defaultEditor": "Default Editor Mode",
+    "signaturePlaceholder": "Enter email signature...",
+    "saveSignature": "Save Signature",
+    "compact": "Compact",
+    "comfortable": "Comfortable",
+    "rules": "Email Rules",
+    "folderMapping": "Folder Mapping",
+    "auto": "Auto",
+    "ruleValuePlaceholder": "Enter match value...",
+    "ruleField": {
+      "subject": "Subject",
+      "from": "From",
+      "to": "To"
+    },
+    "ruleOp": {
+      "contains": "contains",
+      "equals": "equals",
+      "startswith": "starts with",
+      "endswith": "ends with"
+    },
+    "ruleAction": {
+      "move-to": "Move to",
+      "mark-read": "Mark read",
+      "mark-flagged": "Mark flagged",
+      "delete": "Delete"
+    },
+    "folderMap": {
+      "sent": "Sent",
+      "drafts": "Drafts",
+      "trash": "Trash",
+      "junk": "Junk"
+    }
   }
 }

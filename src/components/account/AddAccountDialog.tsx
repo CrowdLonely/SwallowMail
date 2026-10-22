@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { invoke } from "@tauri-apps/api/core";
+import { useMailStore, MailAccount } from "../../stores/mailStore";
 
 interface ProviderPreset {
   name: string;
@@ -13,7 +14,8 @@ interface ProviderPreset {
 
 export function AddAccountDialog({ onClose }: { onClose: () => void }) {
   const { t } = useTranslation();
-  const [step, setStep] = useState<"provider" | "credentials">("provider");
+  const { addAccount, connectAndLoadFolders } = useMailStore();
+  const [step, setStep] = useState<"provider" | "credentials" | "connecting">("provider");
   const [selectedProvider, setSelectedProvider] = useState<string>("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,19 +33,34 @@ export function AddAccountDialog({ onClose }: { onClose: () => void }) {
     }
   };
 
+  useEffect(() => {
+    loadPresets();
+  }, []);
+
   const handleConnect = async () => {
     setLoading(true);
     setError(null);
+    setStep("connecting");
     try {
       const cmd = `add_${selectedProvider}_account`;
-      const account = await invoke(cmd, {
+      const account = await invoke<MailAccount>(cmd, {
         email,
         password,
         displayName: displayName || email,
       });
+
+      await addAccount(account);
+
+      try {
+        await connectAndLoadFolders(account);
+      } catch (folderErr) {
+        console.warn("获取文件夹失败，账户已保存:", folderErr);
+      }
+
       onClose();
     } catch (e) {
       setError(String(e));
+      setStep("credentials");
     } finally {
       setLoading(false);
     }
@@ -72,26 +89,29 @@ export function AddAccountDialog({ onClose }: { onClose: () => void }) {
           </div>
         )}
 
-        {step === "credentials" && (
+        {(step === "credentials" || step === "connecting") && (
           <div className="credentials-form">
+            {step === "connecting" && (
+              <p className="connecting-hint">{t("account.connecting")}</p>
+            )}
             {selectedProvider === "qq" && (
               <p className="hint">{t("account.qqAuthCodeHint")}</p>
             )}
             <label>
               {t("account.email")}
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="example@qq.com" />
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="example@qq.com" disabled={loading} />
             </label>
             <label>
               {t("account.password")}
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} disabled={loading} />
             </label>
             <label>
               {t("account.displayName")}
-              <input type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
+              <input type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)} disabled={loading} />
             </label>
             {error && <p className="error">{error}</p>}
             <div className="form-actions">
-              <button onClick={() => setStep("provider")}>← {t("account.cancel")}</button>
+              <button onClick={() => setStep("provider")} disabled={loading}>← {t("account.cancel")}</button>
               <button onClick={handleConnect} disabled={loading || !email || !password}>
                 {loading ? t("app.loading") : t("account.connect")}
               </button>

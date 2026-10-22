@@ -84,3 +84,60 @@ pub struct Attachment {
     pub content_type: String,
     pub size: u64,
 }
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct MailRule {
+    pub id: String,
+    pub account_id: String,
+    pub field: RuleField,
+    pub operator: RuleOperator,
+    pub value: String,
+    pub action: RuleAction,
+    pub action_value: String,
+    pub enabled: bool,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum RuleField {
+    Subject,
+    From,
+    To,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum RuleOperator {
+    Contains,
+    Equals,
+    StartsWith,
+    EndsWith,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum RuleAction {
+    MoveTo,
+    MarkRead,
+    MarkFlagged,
+    Delete,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct FolderMapping {
+    pub sent: Option<String>,
+    pub drafts: Option<String>,
+    pub trash: Option<String>,
+    pub junk: Option<String>,
+}
+
+impl Default for FolderMapping {
+    fn default() -> Self {
+        FolderMapping {
+            sent: None,
+            drafts: None,
+            trash: None,
+            junk: None,
+        }
+    }
+}

@@ -334,3 +334,482 @@ body {
 .compose-actions { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--color-border); }
 .send-btn { padding: 8px 24px; background: var(--color-primary); color: white; border: none; border-radius: 6px; cursor: pointer; }
 .draft-btn, .discard-btn { padding: 8px 16px; background: none; border: 1px solid var(--color-border); border-radius: 6px; cursor: pointer; }
+
+/* === Mail List Search & Toolbar === */
+.mail-list-search {
+  display: flex;
+  gap: 4px;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+.mail-list-search input {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 13px;
+}
+.search-btn, .search-clear-btn {
+  padding: 6px 10px;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.search-btn:hover, .search-clear-btn:hover { background: var(--color-bg-hover); }
+
+.mail-list-toolbar {
+  display: flex;
+  padding: 4px 16px;
+  border-bottom: 1px solid var(--color-border);
+  gap: 4px;
+}
+.thread-toggle-btn {
+  padding: 4px 10px;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.thread-toggle-btn:hover { background: var(--color-bg-hover); }
+.thread-toggle-btn.active { background: var(--color-primary); color: white; border-color: var(--color-primary); }
+
+.thread-count {
+  margin-left: 6px;
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* === Star Icon === */
+.star-icon { cursor: pointer; font-size: 14px; }
+.star-icon.active { color: var(--color-star); }
+
+/* === Attachment Icon === */
+.attachment-icon { font-size: 14px; padding-top: 2px; }
+
+/* === Mail Attachments === */
+.mail-attachments {
+  padding: 8px 24px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
+}
+.attachments-label { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); }
+.attachment-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.attachment-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 12px;
+}
+.attachment-filename { color: var(--color-text); max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.attachment-size { color: var(--color-text-muted); }
+.attachment-save-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 2px;
+}
+.attachment-save-btn:hover { transform: scale(1.2); }
+
+/* === Thread Attachments === */
+.thread-attachments { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px 0; }
+.thread-attachment-badge {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  background: var(--color-bg-secondary);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* === Thread View === */
+.thread-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 24px;
+}
+.thread-header-info {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border);
+}
+.thread-message {
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+.thread-message.current { border-color: var(--color-primary); background: rgba(37, 99, 235, 0.04); }
+.thread-message-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.thread-sender { font-weight: 500; font-size: 13px; }
+.thread-date { font-size: 12px; color: var(--color-text-muted); }
+.thread-message-body { font-size: 14px; line-height: 1.6; }
+
+/* === Compose Body Wrapper === */
+.compose-body-wrapper { flex: 1; display: flex; flex-direction: column; }
+.compose-body-toolbar {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+.mode-btn {
+  padding: 3px 8px;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.mode-btn:hover { background: var(--color-bg-hover); }
+.mode-btn.active { background: var(--color-primary); color: white; border-color: var(--color-primary); }
+
+.compose-html-editor {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  overflow-y: auto;
+  min-height: 150px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.compose-html-editor:focus { outline: none; border-color: var(--color-primary); }
+
+/* === Compose Error === */
+.compose-error { color: var(--color-danger); font-size: 13px; padding: 4px 16px; }
+
+/* === Loading States === */
+.mail-list-loading, .mail-body-loading, .thread-loading {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+}
+
+/* === Mail List Empty === */
+.mail-list-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  padding: 24px;
+}
+
+.mail-list-load-more {
+  padding: 12px;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+/* === Toast Notifications === */
+.toast-container {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 13px;
+  cursor: pointer;
+  pointer-events: auto;
+  animation: toast-in 0.3s ease;
+  max-width: 360px;
+}
+.toast-info { background: var(--color-bg-secondary); color: var(--color-text); border: 1px solid var(--color-border); }
+.toast-success { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+.toast-error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+.toast-icon { font-size: 16px; flex-shrink: 0; }
+.toast-message { flex: 1; }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (prefers-color-scheme: dark) {
+  .toast-success { background: #064e3b; color: #a7f3d0; border-color: #065f46; }
+  .toast-error { background: #7f1d1d; color: #fecaca; border-color: #991b1b; }
+}
+
+/* === Move Menu === */
+.move-menu-wrapper { position: relative; }
+.move-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 160px;
+  z-index: 60;
+  padding: 4px 0;
+}
+.move-menu-item {
+  display: block;
+  width: 100%;
+  padding: 6px 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--color-text);
+}
+.move-menu-item:hover { background: var(--color-bg-hover); }
+
+/* === Unified Inbox === */
+.unified-inbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+.unified-inbox-item:hover { background: var(--color-bg-hover); }
+.unified-inbox-item.active { background: var(--color-bg-active); font-weight: 600; }
+
+/* === Settings Dialog === */
+.settings-dialog {
+  min-width: 480px;
+  max-width: 560px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.dialog-content {
+  background: var(--color-bg);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.dialog-header button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--color-text-secondary);
+}
+.dialog-header button:hover { color: var(--color-text); }
+.settings-body { display: flex; flex-direction: column; gap: 20px; }
+.settings-section { border-bottom: 1px solid var(--color-border); padding-bottom: 16px; }
+.settings-section:last-child { border-bottom: none; padding-bottom: 0; }
+.settings-section h4 { margin-bottom: 12px; font-size: 14px; color: var(--color-text-secondary); }
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.settings-row label { font-size: 13px; color: var(--color-text); }
+.settings-row select {
+  padding: 4px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 13px;
+}
+.signature-editor {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 13px;
+  margin-top: 8px;
+}
+.save-sig-btn {
+  margin-top: 8px;
+  padding: 6px 16px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.save-sig-btn:hover { background: var(--color-primary-hover); }
+.settings-hint { font-size: 13px; color: var(--color-text-muted); }
+
+/* === Account Edit Button === */
+.account-edit-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  padding: 2px 4px;
+}
+.account-header:hover .account-edit-btn { opacity: 0.7; }
+.account-edit-btn:hover { opacity: 1 !important; }
+
+/* === Compose Attachments === */
+.compose-attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 6px 16px;
+  border-top: 1px solid var(--color-border);
+}
+.compose-attachment-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 12px;
+}
+.remove-att-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  padding: 0 2px;
+}
+.remove-att-btn:hover { color: var(--color-danger); }
+.attach-btn {
+  padding: 8px 12px;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.attach-btn:hover { background: var(--color-bg-hover); }
+
+/* === Checkbox Label === */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+.checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+/* === Offline Banner === */
+.offline-banner {
+  background: #f59e0b;
+  color: #1a1a1a;
+  text-align: center;
+  padding: 4px 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* === Compact List Mode === */
+.mail-list.compact .mail-item {
+  padding: 4px 12px;
+}
+.mail-list.compact .mail-item-subject {
+  font-size: 13px;
+  line-height: 1.3;
+}
+.mail-list.compact .mail-item-preview {
+  display: none;
+}
+.mail-list.compact .mail-item-sender {
+  font-size: 12px;
+}
+
+/* === Density Toggle Button === */
+.density-toggle-btn {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 14px;
+}
+.density-toggle-btn:hover {
+  background: var(--color-bg-hover);
+}
+
+/* === Rules Manager === */
+.rules-manager select,
+.rules-manager input {
+  font-size: 12px;
+  padding: 3px 6px;
+  margin: 2px;
+}
+.rule-list {
+  margin: 6px 0;
+}
+.rule-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+.rule-item button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+.rule-item button:hover { color: var(--color-danger); }
+.rule-add-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+}
+.rule-add-form button {
+  padding: 3px 10px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.rule-add-form button:disabled { opacity: 0.5; }
+
+/* === Folder Mapping Manager === */
+.folder-mapping-manager select {
+  font-size: 12px;
+  padding: 3px 6px;
+  margin: 2px 0;
+}

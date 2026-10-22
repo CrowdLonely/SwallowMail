@@ -3,6 +3,12 @@ use lettre::message::Message;
 use crate::mail::model::MailAccount;
 use crate::mail::model::MailAddress;
 
+pub struct FileAttachment {
+    pub filename: String,
+    pub content_type: String,
+    pub data: Vec<u8>,
+}
+
 #[derive(Debug, thiserror::Error)]
 pub enum SmtpError {
     #[error("构建邮件失败: {0}")]
@@ -40,6 +46,7 @@ pub struct ComposeMail {
     pub subject: String,
     pub body_text: String,
     pub body_html: Option<String>,
+    pub attachments: Vec<FileAttachment>,
 }
 
 pub fn send_mail(account: &MailAccount, compose: &ComposeMail) -> Result<(), SmtpError> {
@@ -58,7 +65,46 @@ pub fn send_mail(account: &MailAccount, compose: &ComposeMail) -> Result<(), Smt
         builder = builder.cc(addr.parse().map_err(|e| SmtpError::BuildFailed(e.to_string()))?);
     }
 
-    let message = if let Some(html) = &compose.body_html {
+    let has_attachments = !compose.attachments.is_empty();
+
+    let message = if has_attachments {
+        let mut multipart = lettre::message::MultiPart::mixed();
+
+        if let Some(html) = &compose.body_html {
+            multipart = multipart.multipart(
+                lettre::message::MultiPart::alternative()
+                    .singlepart(
+                        lettre::message::SinglePart::builder()
+                            .header(ContentType::TEXT_PLAIN)
+                            .body(compose.body_text.clone()),
+                    )
+                    .singlepart(
+                        lettre::message::SinglePart::builder()
+                            .header(ContentType::TEXT_HTML)
+                            .body(html.clone()),
+                    )
+            );
+        } else {
+            multipart = multipart.singlepart(
+                lettre::message::SinglePart::builder()
+                    .header(ContentType::TEXT_PLAIN)
+                    .body(compose.body_text.clone()),
+            );
+        }
+
+        for att in &compose.attachments {
+            let content_type: ContentType = att.content_type.parse()
+                .unwrap_or_else(|_| ContentType::parse("application/octet-stream").unwrap());
+            multipart = multipart.singlepart(
+                lettre::message::SinglePart::builder()
+                    .header(content_type)
+                    .header(lettre::message::header::ContentDisposition::attachment(att.filename.clone()))
+                    .body(att.data.clone()),
+            );
+        }
+
+        builder.multipart(multipart)
+    } else if let Some(html) = &compose.body_html {
         builder.multipart(
             lettre::message::MultiPart::alternative()
                 .singlepart(

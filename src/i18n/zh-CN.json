@@ -1,14 +1,16 @@
 {
   "app": {
     "name": "SwallowMail",
-    "loading": "加载中..."
+    "loading": "加载中...",
+    "offline": "离线模式 — 部分功能不可用"
   },
   "sidebar": {
     "accounts": "账户",
     "addAccount": "添加账户",
     "allAccounts": "所有账户",
     "compose": "写邮件",
-    "settings": "设置"
+    "settings": "设置",
+    "unifiedInbox": "所有收件箱"
   },
   "folder": {
     "inbox": "收件箱",
@@ -33,7 +35,17 @@
     "delete": "删除",
     "reply": "回复",
     "replyAll": "全部回复",
-    "forward": "转发"
+    "forward": "转发",
+    "flag": "加星标",
+    "unflag": "取消星标",
+    "searchPlaceholder": "搜索主题、发件人...",
+    "searchResults": "搜索结果：",
+    "noSearchResults": "未找到匹配的邮件",
+    "threadCount": "会话共 {{count}} 封邮件",
+    "attachments": "附件",
+    "threadView": "会话视图",
+    "listView": "列表视图",
+    "moveTo": "移动到"
   },
   "compose": {
     "title": "新邮件",
@@ -43,10 +55,14 @@
     "toPlaceholder": "收件人",
     "ccPlaceholder": "抄送",
     "subjectPlaceholder": "主题",
-    "bodyPlaceholder": "在此输入邮件内容..."
+    "bodyPlaceholder": "在此输入邮件内容...",
+    "plainText": "纯文本",
+    "richText": "富文本",
+    "addAttachment": "添加附件"
   },
   "account": {
     "add": "添加邮箱账户",
+    "edit": "编辑账户",
     "selectProvider": "选择邮箱服务商",
     "custom": "自定义 IMAP/SMTP",
     "email": "邮箱地址",
@@ -59,7 +75,8 @@
     "126": "网易126邮箱",
     "gmail": "Gmail",
     "outlook": "Outlook",
-    "qqAuthCodeHint": "请使用QQ邮箱授权码，非QQ密码"
+    "qqAuthCodeHint": "请使用QQ邮箱授权码，非QQ密码",
+    "connecting": "正在连接并获取文件夹..."
   },
   "settings": {
     "title": "设置",
@@ -71,6 +88,39 @@
     "dark": "深色",
     "system": "跟随系统",
     "notifications": "通知",
-    "signature": "签名"
+    "signature": "签名",
+    "syncInterval": "同步间隔",
+    "defaultEditor": "默认编辑模式",
+    "signaturePlaceholder": "输入邮件签名...",
+    "saveSignature": "保存签名",
+    "compact": "紧凑",
+    "comfortable": "舒适",
+    "rules": "邮件规则",
+    "folderMapping": "文件夹映射",
+    "auto": "自动",
+    "ruleValuePlaceholder": "输入匹配值...",
+    "ruleField": {
+      "subject": "主题",
+      "from": "发件人",
+      "to": "收件人"
+    },
+    "ruleOp": {
+      "contains": "包含",
+      "equals": "等于",
+      "startswith": "开头是",
+      "endswith": "结尾是"
+    },
+    "ruleAction": {
+      "move-to": "移动到",
+      "mark-read": "标记已读",
+      "mark-flagged": "标记星标",
+      "delete": "删除"
+    },
+    "folderMap": {
+      "sent": "已发送",
+      "drafts": "草稿箱",
+      "trash": "已删除",
+      "junk": "垃圾邮件"
+    }
   }
 }

@@ -1,4 +1,4 @@
-use imap::Session;
+use imap::{Session, NameAttribute};
 use native_tls::TlsStream;
 use std::net::TcpStream;
 use crate::mail::model::MailAccount;
@@ -36,7 +36,14 @@ pub fn fetch_folder_list(session: &mut TlsSession) -> Result<Vec<(String, String
         let delimiter = mb.delimiter().to_string();
         let attributes: Vec<String> = mb.attributes()
             .iter()
-            .map(|a| format!("{:?}", a))
+            .map(|a| match a {
+                NameAttribute::NoSelect => "\\NoSelect".to_string(),
+                NameAttribute::Marked => "\\Marked".to_string(),
+                NameAttribute::Unmarked => "\\Unmarked".to_string(),
+                NameAttribute::HasChildren => "\\HasChildren".to_string(),
+                NameAttribute::HasNoChildren => "\\HasNoChildren".to_string(),
+                NameAttribute::Extension(s) => s.clone(),
+            })
             .collect();
         folders.push((name, delimiter, attributes));
     }
